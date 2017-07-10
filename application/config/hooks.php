@@ -18,3 +18,9 @@ $hook['post_controller_constructor'] = array(
     'filename'  => 'LanguageLoader.php',
     'filepath'  => 'hooks'
 );
+$hook['post_controller'] = array(
+   'class' => 'Db_log',
+   'function' => 'logQueries',
+  'filename' => 'db_log.php',
+  'filepath' => 'hooks'         
+ );

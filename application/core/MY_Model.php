@@ -1080,6 +1080,7 @@ class MY_Model extends CI_Model
                     }
                 }
             }
+
             $this->_requested[$request]['parameters'] = $parameters;
         }
 
@@ -1098,6 +1099,7 @@ class MY_Model extends CI_Model
             $this->after_get[] = 'join_temporary_results';
         }
         */
+        
         return $this;
     }
 
@@ -2048,7 +2050,7 @@ class MY_Model extends CI_Model
         return $data;
     }
 
-    
+
     /*
     public function add_creator($data)
     {
