@@ -1,9 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 class User_model extends MY_Model
 {
-    public $table = 'user';
+    protected $_table = 'user';
     public $primary_key = 'id';
-    protected $timestamps = FALSE;
     protected $after_get = array('showField');
     protected $_hidden = array('username','password','session');
 
@@ -15,7 +14,6 @@ class User_model extends MY_Model
           array_push($_rows,$this->_showField($row));
         }
       }else{
-        echo 'nang kenen';
         $_rows = $this->_showField($rows);
       }
 

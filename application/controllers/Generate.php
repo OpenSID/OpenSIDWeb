@@ -2,11 +2,12 @@
 class Generate extends CI_Controller
 {
     public function create_model($nama_table = NULL){
+        if($nama_table == 'artikel' || $nama_table == 'user') return 1;
         $data = array(
           'table' => $nama_table,
           'classname' => ucfirst($nama_table).'_model',
         );
-        $output_file = APPPATH.'models/'.ucfirst($nama_table).'_model.php';
+        $output_file = APPPATH.'api2/models/'.ucfirst($nama_table).'_model.php';
         $source = $this->load->view('template_model',$data,TRUE);
         $fp = fopen($output_file,'w+');
         fwrite($fp,"<?php defined('BASEPATH') OR exit('No direct script access allowed');\n");

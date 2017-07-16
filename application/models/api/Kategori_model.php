@@ -1,13 +1,14 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 class Kategori_model extends MY_Model
 {
-    public $table = 'kategori';
+    protected $_table = 'kategori';
     public $primary_key = 'id';
-    protected $timestamps = FALSE;
+
     function __construct()
   	{
       parent::__construct();
-  		$this->has_many['child'] = array('foreign_model'=>'api/Kategori_model','foreign_table'=>'kategori','foreign_key'=>'parrent','local_key'=>'id');
-      $this->has_many['artikel'] = array('foreign_model'=>'api/Artikel_model','foreign_table'=>'artikel','foreign_key'=>'id_kategori','local_key'=>'id');
+  		$this->has_many['child'] = array('model'=>'api/Kategori_model','alias'=>'ch','primary_key'=>'parrent');
+      $this->has_many['menu_kiri'] = array('model'=>'api/Kategori_model','alias'=>'mk','primary_key'=>'parrent','where' => array('enabled' => '2'));
+      $this->has_many['artikel'] = array('model'=>'api/Artikel_model','alias'=>'ar','primary_key'=>'id_kategori');
   	}
 }
