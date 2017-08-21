@@ -5,8 +5,11 @@ class User_model extends MY_Model
     public $primary_key = 'id';
     protected $after_get = array('showField');
     protected $_hidden = array('username','password','session');
-
+    protected $_allField = FALSE;
     public function showField($rows){
+      if($this->_allField){
+        return $rows;
+      }
       $multi = $this->is_multidimensional($rows);
       $_rows = array();
       if($multi !== FALSE){
@@ -20,6 +23,12 @@ class User_model extends MY_Model
 
       return $_rows;
     }
+
+    public function allField(){
+      $this->_allField = TRUE;
+      return $this;
+    }
+
     private function _showField($row){
       if(is_array($row)){
         $_row = array();

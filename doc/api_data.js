@@ -247,6 +247,122 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "/auth/tokenMandiri",
+    "title": "Mendapatkan token yang akan digunakan untuk mengakses data yang bersifat rahasia",
+    "name": "GetToken",
+    "group": "Authentication",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "nik",
+            "description": "<p>nik warga unique ID.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "pin",
+            "description": "<p>pin warga, diperoleh setelah melakukan registrasi pada layanan mandiri.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    HTTP/1.1 200 OK\n{\n \"status\": 1,\n \"content\": \t\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDMyNzk2MDMsImlzcyI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDgwXC9lZHNhLW9wZW5zaWR3ZWJcLyIsIm5iZiI6MTUwMzI3OTYwNiwiZXhwIjoxNTAzMjgzMjAzLCJkYXRhIjp7Im5payI6IjMyNzUwMTQ2MDE5NzcwMDUiLCJpc0xvZ2luIjoxfX0.vv-HTaHDVDHpVkgFccfl4-wqMzL080SlZIgHC-5qbmw\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "notFound",
+            "description": "<p>nik tidak ditemukan atau pin salah</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"0\",\n  \"content\" : []\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "application/controllers/api/Auth.php",
+    "groupTitle": "Authentication"
+  },
+  {
+    "type": "post",
+    "url": "/auth/tokenSiteman",
+    "title": "Mendapatkan token yang akan digunakan untuk mengakses data yang bersifat rahasia sebagai admin opensid",
+    "name": "PostToken",
+    "group": "Authentication",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "username",
+            "description": "<p>username .</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "password",
+            "description": "<p>password .</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "    HTTP/1.1 200 OK\n{\n \"status\": 1,\n \"content\": \t\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDMyODIwMDcsImlzcyI6Imh0dHA6XC9cLzEyNy4wLjAuMTo4MDgwXC9lZHNhLW9wZW5zaWR3ZWJcLyIsIm5iZiI6MTUwMzI4MjAxMCwiZXhwIjoxNTAzMjg1NjA3LCJkYXRhIjp7InNpdGVtYW4iOjEsInNlc2kiOiJhOGQ0MDgwMjQ1NjY0ZWQyMDQ5YzFiMmRlZDdjYWMzMCIsInVzZXIiOiIxIiwiZ3J1cCI6IjEiLCJpc0xvZ2luIjoxfX0.fPryREYUrtlZR8IoeywkynJZXqNke8_S1JM4CChlQKk\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "notFound",
+            "description": "<p>username tidak ditemukan atau password salah</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"0\",\n  \"content\" : []\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "application/controllers/api/Auth.php",
+    "groupTitle": "Authentication"
+  },
+  {
+    "type": "get",
     "url": "/config/list",
     "title": "Mengambil konfigurasi untuk opensid",
     "name": "GetList",
@@ -286,44 +402,6 @@ define({ "api": [
   {
     "type": "get",
     "url": "/kategori/list",
-    "title": "Mengambil semua kategori",
-    "name": "GetKategori",
-    "group": "Kategori",
-    "success": {
-      "examples": [
-        {
-          "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"status\": 1,\n  \"content\": [\n {\n   \"id\": \"1\",\n   \"kategori\": \"Berita Desa\",\n   \"tipe\": \"1\",\n   \"urut\": \"1\",\n   \"enabled\": \"1\",\n   \"parrent\": \"0\"\n },\n {\n   \"id\": \"2\",\n   \"kategori\": \"Produk Desa\",\n   \"tipe\": \"1\",\n   \"urut\": \"3\",\n   \"enabled\": \"2\",\n   \"parrent\": \"0\"\n },\n {\n   \"id\": \"22\",\n   \"kategori\": \"teks_berjalan\",\n   \"tipe\": \"1\",\n   \"urut\": \"0\",\n   \"enabled\": \"1\",\n   \"parrent\": \"0\"\n }\n  ]\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "kategori",
-            "description": "<p>tidak ditemukan</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Error-Response:",
-          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"0\",\n  \"content\" : []\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "application/controllers/api/Kategori.php",
-    "groupTitle": "Kategori"
-  },
-  {
-    "type": "get",
-    "url": "/kategori/list",
     "title": "Mengambil kategori untuk dijadikan sebagai menu di sidebar kiri, konversi dari list_menu_kiri",
     "name": "GetKategori",
     "group": "Kategori",
@@ -343,6 +421,44 @@ define({ "api": [
             "group": "Error 4xx",
             "optional": false,
             "field": "sidebar",
+            "description": "<p>tidak ditemukan</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Found\n{\n  \"status\": \"0\",\n  \"content\" : []\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "application/controllers/api/Kategori.php",
+    "groupTitle": "Kategori"
+  },
+  {
+    "type": "get",
+    "url": "/kategori/list",
+    "title": "Mengambil semua kategori",
+    "name": "GetKategori",
+    "group": "Kategori",
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"status\": 1,\n  \"content\": [\n {\n   \"id\": \"1\",\n   \"kategori\": \"Berita Desa\",\n   \"tipe\": \"1\",\n   \"urut\": \"1\",\n   \"enabled\": \"1\",\n   \"parrent\": \"0\"\n },\n {\n   \"id\": \"2\",\n   \"kategori\": \"Produk Desa\",\n   \"tipe\": \"1\",\n   \"urut\": \"3\",\n   \"enabled\": \"2\",\n   \"parrent\": \"0\"\n },\n {\n   \"id\": \"22\",\n   \"kategori\": \"teks_berjalan\",\n   \"tipe\": \"1\",\n   \"urut\": \"0\",\n   \"enabled\": \"1\",\n   \"parrent\": \"0\"\n }\n  ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "kategori",
             "description": "<p>tidak ditemukan</p>"
           }
         ]
